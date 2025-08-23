@@ -6,4 +6,4 @@ __pycache__/
 
 # Streamlit & cache
 .streamlit/
-vectorstore/
+# vectorstore/

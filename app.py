@@ -12,7 +12,7 @@ st.title("📘 PDF Question Answering Chatbot (RAG)")
 st.write("Upload PDFs to the `docs/` folder, build vectorstore with `run_once.py`, then ask questions here.")
 
 # Show which model is being used (for debugging)
-HF_TOKEN = os.getenv("HF_TOKEN")
+HF_TOKEN = st.secrets.get("HF_TOKEN")
 if not HF_TOKEN:
     st.error("❌ Hugging Face token not found. Please set HF_TOKEN in your .env file.")
 else:
@@ -23,6 +23,6 @@ query = st.text_input("Ask a question about your documents:")
 
 if query:
     with st.spinner("Thinking..."):
-        answer = answer_question(query)
+        answer = answer_question(query, HF_TOKEN)
     st.markdown("### ✅ Answer:")
     st.write(answer)

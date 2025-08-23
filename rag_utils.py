@@ -25,9 +25,6 @@ with open(CHUNKS_FILE, "rb") as f:
 # Embedding model
 embedder = SentenceTransformer("all-MiniLM-L6-v2")
 
-# Hugging Face inference client (secured with token)
-MODEL_ID = "mistralai/Mistral-7B-Instruct-v0.2"
-client = InferenceClient(model=MODEL_ID, token=HF_TOKEN)
 
 
 def retrieve(query, top_k=3):
@@ -37,7 +34,7 @@ def retrieve(query, top_k=3):
     return results
 
 
-def answer_question(query: str) -> str:
+def answer_question(query: str, HF_TOKEN: str) -> str:
     retrieved_chunks = retrieve(query)
     context = "\n".join(retrieved_chunks)
     
@@ -45,6 +42,11 @@ def answer_question(query: str) -> str:
         {"role": "system", "content": "You are a helpful assistant that answers questions based on provided context."},
         {"role": "user", "content": f"Context: {context}\n\nQuestion: {query}"}
     ]
+
+    # Hugging Face inference client (secured with token)
+    MODEL_ID = "mistralai/Mistral-7B-Instruct-v0.2"
+    client = InferenceClient(model=MODEL_ID, token=HF_TOKEN)
+
     try:
         response = client.chat_completion(
             model=MODEL_ID,
