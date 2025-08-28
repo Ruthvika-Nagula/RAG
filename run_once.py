@@ -18,12 +18,12 @@ os.makedirs(VECTORSTORE_FOLDER, exist_ok=True)
 model = SentenceTransformer("all-MiniLM-L6-v2")
 
 
-# ✅ Load all PDFs safely
+# Load all PDFs safely
 def load_pdfs(folder):
     texts = []
     if not os.path.exists(folder):
         os.makedirs(folder)
-        print("⚠️ docs/ folder created. Please add PDFs inside it and rerun.")
+        print(" docs/ folder created. Please add PDFs inside it and rerun.")
         return texts
 
     for file in os.listdir(folder):
@@ -36,11 +36,11 @@ def load_pdfs(folder):
                     if text:
                         texts.append(text)
             except Exception as e:
-                print(f"⚠️ Skipping {file}: {e}")
+                print(f" Skipping {file}: {e}")
     return texts
 
 
-# ✅ Chunk text into smaller pieces
+# Chunk text into smaller pieces
 def chunk_text(text, chunk_size=500, overlap=50):
     words = text.split()
     chunks = []
@@ -54,7 +54,7 @@ def chunk_text(text, chunk_size=500, overlap=50):
 all_texts = load_pdfs(DOCS_FOLDER)
 
 if not all_texts:
-    print("❌ No valid PDF content found in docs/. Add PDFs and rerun.")
+    print("No valid PDF content found in docs/. Add PDFs and rerun.")
     exit()
 
 # Step 2: Chunk texts
@@ -74,6 +74,6 @@ faiss.write_index(index, INDEX_FILE)
 with open(CHUNKS_FILE, "wb") as f:
     pickle.dump(all_chunks, f)
 
-print("✅ Vectorstore created successfully!")
-print(f"📂 Saved FAISS index at: {INDEX_FILE}")
-print(f"📂 Saved chunks at: {CHUNKS_FILE}")
+print("Vectorstore created successfully!")
+print(f"Saved FAISS index at: {INDEX_FILE}")
+print(f"Saved chunks at: {CHUNKS_FILE}")
