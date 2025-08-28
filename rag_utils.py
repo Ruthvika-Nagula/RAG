@@ -34,7 +34,7 @@ def retrieve(query, top_k=3):
     return results
 
 
-def answer_question(query: str, HF_TOKEN: str) -> str:
+def answer_question(query: str, H) -> str:
     retrieved_chunks = retrieve(query)
     context = "\n".join(retrieved_chunks)
     
