@@ -44,7 +44,7 @@ def answer_question(query: str, H) -> str:
     ]
 
     # Hugging Face inference client (secured with token)
-    MODEL_ID = "mistralai/Mistral-7B-Instruct-v0.2"
+    MODEL_ID = "mistralai/Mistral-7B-Instruct-v0.3"
     client = InferenceClient(model=MODEL_ID, token=HF_TOKEN)
 
     try:
